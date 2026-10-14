@@ -1,0 +1,1609 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="assets/navigation.js"></script>
+<title>𝄞 LEZIONI DI MUSICA | Maestro Vittorio Massa</title>
+<meta name="description" content="Lezioni di chitarra e basso, pianoforte, produzione elettronica, teoria e solfeggio, armonia e arrangiamento, registrazione. Milano, Cantù e online.">
+<meta name="theme-color" content="#f5f0e6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800;900&family=Noto+Music&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --paper:#f5f0e6;
+  --ink:#080808;
+  --acid:#c9a84c;
+  --hair:rgba(8,8,8,.22);
+  --muted:rgba(8,8,8,.55);
+  --hl-bg:#080808;
+  --hl-fg:#c9a84c;
+  --line:1.5px solid var(--ink);
+  --nav-h:72px;
+  --ease:cubic-bezier(.77,0,.175,1);
+  --soft:cubic-bezier(.2,.8,.2,1);
+}
+body.invert{
+  --paper:#0a0a0a;
+  --ink:#f2f0e9;
+  --hair:rgba(255,255,255,.3);
+  --muted:rgba(242,240,233,.65);
+  --hl-bg:#c9a84c;
+  --hl-fg:#080808;
+  /* RIGHE BIANCHE PURE in dark mode */
+  --line:1.5px solid #ffffff;
+  color-scheme:dark;
+}
+html:has(body.invert){color-scheme:dark}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:Inter,Arial,sans-serif;font-size:16px;line-height:1.4;
+  text-transform:uppercase;overflow-x:hidden;
+  transition:background .45s ease,color .45s ease;
+  -webkit-font-smoothing:antialiased;
+}
+body.no-scroll{overflow:hidden}
+h1,h2,h3,h4,h5{margin:0;font-weight:400}
+p{margin:0;text-transform:none}
+ul{margin:0;padding:0;list-style:none}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-transform:inherit}
+img,svg{display:block;max-width:100%}
+::selection{background:var(--acid);color:#080808}
+:focus-visible{outline:2px solid var(--acid);outline-offset:3px}
+.modal :focus-visible{outline-color:#080808}
+
+.wrap{padding-inline:3vw}
+.eyebrow{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.16em;color:var(--muted)}
+.section-head{border-bottom:var(--line);padding:38px 3vw 26px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+.section-head h2{font-family:'Archivo Black',sans-serif;font-size:clamp(40px,7vw,96px);line-height:.82;letter-spacing:-.055em}
+.section-note{font-size:13px;line-height:1.5;max-width:340px;color:var(--muted);text-transform:none;text-align:right}
+
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s var(--soft),transform .8s var(--soft)}
+.reveal.in{opacity:1;transform:none}
+
+.noise{
+  position:fixed;inset:0;z-index:80;pointer-events:none;opacity:.14;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply;
+}
+body.invert .noise{mix-blend-mode:screen;opacity:.08}
+
+.cursor{
+  position:fixed;left:0;top:0;width:24px;height:24px;z-index:9998;pointer-events:none;
+  border:1.5px solid var(--ink);background:transparent;
+  transition:width .25s var(--soft),height .25s var(--soft),background .25s,border-color .25s,opacity .3s;
+  will-change:transform;opacity:0;
+}
+body.has-cursor .cursor{opacity:1}
+body.has-cursor,body.has-cursor a,body.has-cursor button,body.has-cursor input,
+body.has-cursor textarea,body.has-cursor select,body.has-cursor label,
+body.has-cursor .select-trigger,body.has-cursor .select-menu li{cursor:none}
+.cursor.is-hover{width:60px;height:60px;background:rgba(201,168,76,.35);border-color:var(--ink)}
+.cursor.cursor-light{border-color:var(--paper)}
+body.modal-open .cursor{border-color:#080808}
+
+.progress{position:fixed;left:0;top:0;height:4px;width:100%;z-index:90;transform:scaleX(0);transform-origin:0 50%;background:var(--acid);border-bottom:1px solid var(--ink)}
+
+/* LOADER */
+.loader{position:fixed;inset:0;z-index:9999;background:var(--acid);display:grid;place-items:center;transition:transform .75s var(--ease)}
+.loader.done{transform:translateY(-101%)}
+.loader-mark{display:block;width:clamp(90px,13vw,170px);color:#080808}
+.loader-mark svg{width:100%;height:auto}
+
+.nav{
+  position:sticky;top:0;z-index:70;height:var(--nav-h);
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;
+  padding:0 3vw;background:var(--paper);border-bottom:var(--line);
+  transition:height .3s var(--soft),background .45s ease;
+}
+.nav.shrink{height:58px}
+.brand{display:flex;align-items:center;gap:14px;font-size:10px;font-weight:700;line-height:1.25;letter-spacing:.04em}
+.logo-anim{width:42px;height:42px;display:inline-flex;flex-shrink:0;color:var(--ink);transition:color .3s;contain:layout paint}
+.logo-anim svg{width:100%;height:100%;overflow:visible}
+.brand:hover .logo-anim{color:var(--acid)}
+body.invert .cursor.cursor-light{border-color:var(--ink)}
+
+.links{display:flex;gap:34px;font-size:12px;font-weight:800;letter-spacing:.05em}
+.links a{position:relative;padding:5px 8px;margin:0 -8px}
+.links a::after{content:"";position:absolute;left:0;bottom:0;height:1.5px;width:100%;background:var(--ink);transform:scaleX(0);transform-origin:0 50%;transition:transform .35s var(--ease)}
+.links a:hover::after,.links a.active::after{transform:scaleX(1);background:var(--hl-fg)}
+.links a:hover,.links a.active{color:var(--hl-fg);background:var(--hl-bg)}
+.nav-right{display:flex;align-items:center;justify-content:flex-end;gap:16px}
+.tag{text-align:right;font-size:10px;line-height:1.4;color:var(--muted);letter-spacing:.04em}
+.icon-btn{
+  width:38px;height:38px;border:var(--line);display:grid;place-items:center;
+  font-size:13px;font-weight:800;transition:background .25s,color .25s,transform .25s var(--soft);
+}
+.icon-btn:hover{background:var(--hl-bg);color:var(--hl-fg)}
+.burger{display:none;width:44px;height:38px;border:var(--line);place-items:center;gap:4px}
+.burger span{display:block;width:18px;height:2px;background:currentColor;transition:transform .3s var(--ease),opacity .2s}
+.burger:hover{background:var(--hl-bg);color:var(--hl-fg)}
+
+.mobile-menu{
+  position:fixed;inset:0;z-index:65;background:var(--paper);
+  display:flex;flex-direction:column;justify-content:center;gap:6px;padding:12vh 8vw;
+  transform:translateY(-100%);
+  visibility:hidden;pointer-events:none;
+  transition:transform .6s var(--ease),visibility 0s linear .6s;
+}
+.mobile-menu.open{transform:translateY(0);visibility:visible;pointer-events:auto;transition:transform .6s var(--ease),visibility 0s}
+.mobile-menu a{
+  font-family:'Archivo Black',sans-serif;font-size:clamp(38px,11vw,74px);line-height:1.05;
+  letter-spacing:-.05em;border-bottom:var(--line);padding:10px 0;display:flex;justify-content:space-between;align-items:baseline;
+}
+.mobile-menu a span{font-family:Inter;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--muted)}
+.mobile-menu a:hover{color:var(--hl-fg);background:var(--hl-bg);padding-inline:12px}
+.mobile-menu a:hover span{color:inherit}
+.mobile-menu .mm-foot{margin-top:34px;font-size:11px;letter-spacing:.1em;color:var(--muted)}
+
+/* HERO */
+.hero{
+  position:relative;display:grid;grid-template-columns:46% 20% 26% 8%;
+  border-bottom:var(--line);overflow:hidden;min-height:420px;
+}
+.hero-title{padding:26px 0 24px 3vw;z-index:3}
+.hero h1{font-family:'Archivo Black',Arial Black,sans-serif;font-size:clamp(52px,7.6vw,120px);line-height:.76;letter-spacing:-.07em}
+.hero h1 span{display:block}
+.hero h1 span:nth-child(4){transition:color .3s,letter-spacing .6s var(--ease)}
+.hero:hover h1 span:nth-child(4){color:var(--acid);text-shadow:-2px -2px 0 var(--ink),2px -2px 0 var(--ink),-2px 2px 0 var(--ink),2px 2px 0 var(--ink)}
+body.invert .hero:hover h1 span:nth-child(4){text-shadow:none}
+.hero-copy{align-self:center;z-index:3;font-size:13px;line-height:1.45;padding-right:14px}
+.hero-copy p{max-width:250px}
+.hero-cta{display:inline-flex;align-items:center;gap:12px;margin-top:20px;font-size:11px;font-weight:800;letter-spacing:.1em;border-bottom:2px solid var(--ink);padding-bottom:6px}
+.hero-cta .arrow{font-size:22px;line-height:1;transition:transform .35s var(--ease)}
+.hero-cta:hover{background:var(--hl-bg);color:var(--hl-fg);padding-inline:8px}
+.hero-cta:hover .arrow{transform:translateX(5px)}
+.hero-art{position:relative;z-index:1}
+/* CERCHI ANIMATI — movimento continuo */
+.circle{
+  position:absolute;width:315px;height:315px;border-radius:50%;background:var(--acid);
+  left:5%;top:-82px;
+  will-change:transform,translate;
+  transition:transform .8s var(--soft);
+  animation:floatCircle 9s ease-in-out infinite;
+}
+.circle.two{
+  width:250px;height:250px;left:44%;top:77px;
+  animation:floatCircle2 11s ease-in-out infinite;
+}
+@keyframes floatCircle{
+  0%,100%{translate:0 0}
+  50%{translate:22px -26px}
+}
+@keyframes floatCircle2{
+  0%,100%{translate:0 0}
+  50%{translate:-18px 20px}
+}
+.hero-art:hover .circle{transform:scale(1.06)}
+.hero-art:hover .circle.two{transform:scale(.94)}
+/* IMMAGINE FISSA */
+.hero-img{
+  position:absolute;left:0%;top:5%;bottom:0;width:100%;height:100%;z-index:2;
+  pointer-events:none;
+  /* transform: scale(1); */
+}
+.hero-img img{
+  width:100%;height:100%;object-fit:contain;object-position:right bottom;
+  filter:grayscale(1) contrast(1.1);
+  transition:filter .6s var(--soft);
+}
+.hero-art:hover .hero-img img{filter:grayscale(0) contrast(1.05)}
+.badge{position:absolute;left:4vw;bottom:8%;width:104px;height:104px;z-index:1;animation:spin 16s linear infinite}
+.badge text{font-family:Inter;font-size:9.4px;font-weight:800;letter-spacing:0;fill:var(--ink)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-values{background-color: var(--paper); padding:34px 1vw 20px 1.4vw;font-size:10px;font-weight:700;line-height:2;letter-spacing:.06em;color:var(--muted);z-index:4;border-left:1px solid var(--hair)}
+.hero-values li{border-bottom:1px solid var(--hair);padding-bottom:4px;margin-bottom:6px;white-space:nowrap}
+.hero-scroll{position:absolute;left:3vw;bottom:14px;z-index:5;font-size:9px;font-weight:800;letter-spacing:.2em;color:var(--muted);display:flex;align-items:center;gap:8px}
+.hero-scroll i{display:block;width:34px;height:1.5px;background:var(--ink);animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scaleX(.35);transform-origin:0 50%}50%{transform:scaleX(1);transform-origin:0 50%}}
+
+.stats-bar{border-bottom:var(--line);display:grid;grid-template-columns:repeat(3,1fr);background:var(--paper)}
+.stats-bar li{padding:22px 3vw;border-right:var(--line);text-align:center}
+.stats-bar li:last-child{border-right:0}
+.stats-bar strong{display:block;font-family:'Archivo Black',sans-serif;font-size:clamp(28px,3.5vw,48px);line-height:1;letter-spacing:-.04em}
+.stats-bar span{display:block;margin-top:6px;font-size:10px;font-weight:800;letter-spacing:.14em;color:var(--muted)}
+
+/* FIRST LESSON — a useful next step after the introduction */
+.first-lesson{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:28px;padding:28px 3vw;background:var(--acid);color:#080808;border-bottom:1.5px solid #080808}
+.first-lesson .offer-mark{font-family:'Archivo Black',sans-serif;font-size:clamp(32px,4.4vw,60px);letter-spacing:-.03em;line-height:1;white-space:nowrap}
+.first-lesson .offer-price{border-right:1.5px solid #080808;padding-right:28px}
+.first-lesson .price-note{font-size:9px;letter-spacing:.04em;margin-top:8px;max-width:18ch}
+.first-lesson .offer-kicker{font-size:9px;font-weight:800;letter-spacing:.14em;margin-bottom:7px}
+.first-lesson h2{font-family:'Archivo Black',sans-serif;font-size:clamp(20px,2.2vw,32px);letter-spacing:-.045em;line-height:1.05}
+.first-lesson p{font-size:12px;line-height:1.5;max-width:52ch;margin-top:8px}
+
+
+.ui-arrow{display:inline-block;width:18px;height:18px;flex:0 0 18px;vertical-align:middle}
+.ui-arrow--down{rotate:90deg}.ui-arrow--up{rotate:-90deg}.ui-arrow--left{rotate:180deg}.ui-arrow--diagonal{rotate:-45deg}
+.view-btn{display:inline-flex;align-items:center;gap:6px}.view-btn .ui-arrow{width:13px;height:13px;flex-basis:13px}
+@media(max-width:820px){.first-lesson{grid-template-columns:auto minmax(0,1fr);gap:20px;padding:24px 5vw}.first-lesson .offer-price{padding-right:20px}}
+@media(max-width:480px){.first-lesson{grid-template-columns:minmax(0,1fr)}.first-lesson .offer-price{border-right:0;border-bottom:1px solid #080808;padding:0 0 16px;display:flex;gap:16px;align-items:center;justify-content:space-between}.first-lesson .price-note{margin-top:0;text-align:right}}
+.meta-tag{display:inline-flex;align-items:center;gap:8px}.meta-tag .ui-arrow{width:14px;height:14px;flex-basis:14px}
+@keyframes slide{to{transform:translateX(-25%)}}
+
+.filters{display:flex;flex-wrap:wrap;gap:8px;padding:18px 3vw;border-bottom:var(--line)}
+.chip{
+  border:1.5px solid var(--ink);padding:8px 16px;font-size:10px;font-weight:800;letter-spacing:.1em;
+  transition:background .25s,color .25s,transform .2s var(--soft);
+}
+.chip:hover{background:var(--hl-bg);color:var(--hl-fg);transform:translateY(-2px)}
+.chip.active{background:var(--hl-bg);color:var(--hl-fg)}
+.chip small{opacity:.5;margin-left:5px}
+
+.projects{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:var(--line)}
+.project{
+  position:relative;padding:14px 16px 22px;border-right:var(--line);border-bottom:var(--line);
+  min-width:0;transition:background .35s;cursor:pointer;overflow:hidden;
+}
+.project:nth-child(3n){border-right:0}
+.project:nth-last-child(-n+3){border-bottom:0}
+.project:hover{background:color-mix(in srgb,var(--ink) 7%,var(--paper))}
+body.invert .project:hover{background:#151515}
+.project-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.num{font-family:'Archivo Black',sans-serif;font-size:22px;letter-spacing:-.03em}
+.view-btn{
+  font-size:9px;font-weight:800;letter-spacing:.1em;border:1.5px solid var(--ink);
+  background:var(--hl-bg);color:var(--hl-fg);padding:5px 10px;transition:all .25s;
+}
+body.invert .view-btn{background:transparent;color:var(--ink)}
+.project:hover .view-btn{background:var(--acid);color:#080808;border-color:#080808;transform:rotate(-2deg)}
+.thumb{height:200px;margin:8px 0 14px;overflow:hidden;position:relative;background:#ddd;transition:filter .4s,transform .6s var(--soft);isolation:isolate}
+.project:hover .thumb{filter:contrast(1.15) saturate(1.1);transform:scale(1.015)}
+.project h3{font-family:'Archivo Black',sans-serif;font-size:19px;letter-spacing:-.04em;margin-bottom:5px;overflow-wrap:anywhere}
+.project p{font-size:11px;line-height:1.45;color:var(--muted);max-width:250px;overflow-wrap:anywhere}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.tags .ui-arrow{width:12px;height:12px;flex-basis:12px}
+.tags li{display:inline-flex;align-items:center;gap:6px;font-size:8.5px;font-weight:800;letter-spacing:.1em;border:1px solid var(--hair);padding:3px 8px;color:var(--muted)}
+.project.is-hidden{display:none}
+
+.thumb.chitarra{background:linear-gradient(110deg,#1a1a1a 0 29%,#333 29% 58%,#111 58%)}
+.thumb.chitarra::after{content:"𝄢";font-size:200px;position:absolute;right:10%;top:0px;color:var(--acid);font-family:Arial;line-height:1;opacity:.9}
+.thumb.chitarra::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,.05) 2px,rgba(255,255,255,.05) 4px)}
+
+.thumb.pianoforte{background:linear-gradient(105deg,#2a2a2a 0 14%,#444 14% 100%)}
+.thumb.pianoforte::after{content:"𝆮";font-size:420px;position:absolute;right:4%;top:0px;color:#e0e0e0;font-family:Arial;line-height:1}
+
+.thumb.produzione{background:#111;border-radius:8px;border:1px solid #444}
+.thumb.produzione::after{content:"♪";font-size:350px;position:absolute;left:10px;top:-80px;color:var(--acid);font-family:Arial;line-height:1}
+.thumb.produzione::before{content:"BEAT\A SYNTH\A MIX\A MASTER";white-space:pre;position:absolute;right:10%;top:28%;z-index:2;color:#ddd;font-size:0.6em;line-height:2.4;letter-spacing:.1em}
+
+.thumb.teoria{background:linear-gradient(100deg,#cfcfcf,#888)}
+.thumb.teoria::after{content:"𝄞";font-family:'Archivo Black';font-size:200px;position:absolute;right:2%;top:0px;color:#222;line-height:1}
+
+.thumb.armonia{background:repeating-radial-gradient(circle at 50% 50%,#111 0 6px,#e9e9e9 6px 14px)}
+.thumb.armonia::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0 62%,var(--acid) 62% 100%);mix-blend-mode:multiply}
+
+.thumb.registrazione{background:#111}
+.thumb.registrazione::after{content:"♯";font-size:210px;line-height:1;position:absolute;left:50%;top:48%;transform:translate(-50%,-52%);color:var(--acid);font-family:Arial}
+.thumb.registrazione::before{content:"";position:absolute;inset:0;background:
+  linear-gradient(to right,rgba(255,255,255,.14) 1px,transparent 1px) 0 0/40px 40px,
+  linear-gradient(to bottom,rgba(255,255,255,.14) 1px,transparent 1px) 0 0/40px 40px}
+
+/* ABOUT */
+.about{border-bottom:var(--line);display:grid;grid-template-columns:minmax(0,1.15fr) minmax(360px,.85fr)}
+.about-copy{padding:46px 3vw;border-right:var(--line)}
+.about-copy h2{font-family:'Archivo Black',sans-serif;font-size:clamp(48px,6.5vw,100px);line-height:.78;letter-spacing:-.06em;margin:14px 0 22px}
+.about-copy .lead{font-size:clamp(15px,1.35vw,19px);line-height:1.5;font-weight:500;max-width:620px}
+.about-copy .lead + p{margin-top:16px;font-size:14px;line-height:1.65;color:var(--muted);max-width:580px}
+.about-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;border:2px solid var(--ink);
+  background:var(--ink);color:var(--paper);padding:14px 26px;font-size:11px;font-weight:800;letter-spacing:.1em;
+  transition:transform .25s var(--soft),box-shadow .25s var(--soft),background .25s,color .25s;
+}
+.btn:hover{background:var(--acid);color:#080808;box-shadow:6px 6px 0 var(--ink);transform:translate(-3px,-3px)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--hl-bg);color:var(--hl-fg);box-shadow:6px 6px 0 var(--acid);transform:translate(-3px,-3px)}
+body.invert .btn.ghost:hover{box-shadow:6px 6px 0 var(--ink)}
+.about-side{display:flex;flex-direction:column;min-width:0}
+.image-block{
+  position:relative;overflow:hidden;flex:1;min-height:360px;width:100%;
+  background:linear-gradient(137deg,#151515 0 39%,#c8c8c8 39% 59%,#3c3c3c 59% 100%);
+  transition:background .7s var(--soft);
+}
+.image-block:hover{background:linear-gradient(137deg,var(--acid) 0 39%,#c8c8c8 39% 59%,#151515 59% 100%)}
+.image-block::after{content:"";position:absolute;inset:0;background:linear-gradient(35deg,transparent 0 42%,rgba(255,255,255,.25) 42% 43%,transparent 43%)}
+.image-block .ib-label{position:absolute;left:16px;bottom:14px;z-index:3;font-size:9px;font-weight:800;letter-spacing:.16em;color:#fff;mix-blend-mode:difference}
+.stats{display:grid;grid-template-columns:1fr 1fr;border-top:var(--line)}
+.stats li{padding:20px 18px;border-right:var(--line);border-bottom:var(--line)}
+.stats li:nth-child(2n){border-right:0}
+.stats li:nth-last-child(-n+2){border-bottom:0}
+.stats strong{display:block;font-family:'Archivo Black',sans-serif;font-size:clamp(30px,3.6vw,50px);line-height:1;letter-spacing:-.04em}
+.stats span{display:block;margin-top:6px;font-size:9px;font-weight:800;letter-spacing:.14em;color:var(--muted)}
+
+.about-extra{display:grid;grid-template-columns:1fr;border-bottom:var(--line)}
+.panel{padding:40px 3vw}
+.panel h3{font-family:'Archivo Black',sans-serif;font-size:clamp(22px,2.6vw,34px);letter-spacing:-.04em;margin:10px 0 24px}
+.timeline li{border-top:1px solid var(--hair);padding:14px 0;display:grid;grid-template-columns:120px 1fr;gap:14px;font-size:12px;line-height:1.45}
+.timeline li span{font-size:9.5px;font-weight:800;letter-spacing:.1em;color:var(--muted);padding-top:2px}
+.timeline li b{font-weight:700;display:block}
+.timeline li em{font-style:normal;color:var(--muted);font-size:11px;text-transform:none}
+
+/* ACCORDION */
+.acc{border-bottom:var(--line)}
+.acc-item{border-bottom:var(--line)}
+.acc-item:last-child{border-bottom:0}
+.acc-head{
+  width:100%;display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:18px;
+  padding:22px 3vw;text-align:left;transition:background .3s,color .3s,padding .35s var(--ease);
+}
+.acc-head:hover{background:var(--hl-bg);color:var(--hl-fg);padding-left:calc(3vw + 12px)}
+.acc-head .acc-num{font-family:'Archivo Black',sans-serif;font-size:15px;letter-spacing:-.02em}
+.acc-head h3{font-family:'Archivo Black',sans-serif;font-size:clamp(20px,3vw,40px);letter-spacing:-.045em;line-height:1}
+.acc-head .acc-icon{font-size:26px;line-height:1;transition:transform .45s var(--ease)}
+.acc-item.open .acc-head{background:var(--hl-bg);color:var(--hl-fg)}
+.acc-item.open .acc-icon{transform:rotate(135deg)}
+.acc-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease)}
+.acc-item.open .acc-panel{grid-template-rows:1fr}
+.acc-panel > div{overflow:hidden}
+.acc-inner{padding:30px 3vw 34px calc(3vw + 98px);display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.acc-inner p{font-size:13.5px;line-height:1.65;color:var(--muted);max-width:520px}
+.acc-inner ul li{font-size:11px;font-weight:700;letter-spacing:.06em;padding:7px 0;border-bottom:1px solid var(--hair)}
+.acc-inner ul li:first-child{padding-top:0}
+
+.clients{border-bottom:var(--line);padding:26px 0;overflow:hidden}
+.clients .track{display:flex;width:max-content;animation:slide 34s linear infinite;margin:0;padding:0}
+.clients:hover .track{animation-play-state:paused}
+.clients .track span{font-family:'Archivo Black',sans-serif;font-size:clamp(26px,4vw,54px);letter-spacing:-.04em;padding:0 30px;color:var(--muted);transition:color .3s,transform .3s;white-space:nowrap;display:inline-block;flex:0 0 auto}
+.clients .track span:hover{color:var(--acid);-webkit-text-stroke:1.5px var(--ink);transform:translateY(-4px)}
+
+.voices{border-bottom:var(--line);padding:52px 3vw 46px;position:relative;overflow:hidden}
+.voices-track{display:flex;transition:transform .7s var(--ease)}
+.voice{min-width:100%;padding-right:6vw}
+.voice blockquote{margin:0;font-family:'Archivo Black',sans-serif;font-size:clamp(22px,3.4vw,46px);line-height:1.08;letter-spacing:-.04em;text-transform:none;max-width:1000px}
+.voice blockquote::before{content:"“";color:var(--acid);-webkit-text-stroke:1.5px var(--ink);margin-right:6px}
+.voice footer{margin-top:26px;display:flex;align-items:center;gap:14px;font-size:10px;font-weight:800;letter-spacing:.14em}
+.voice footer i{display:block;width:34px;height:1.5px;background:var(--ink)}
+.voice footer span{color:var(--muted)}
+.voices-nav{display:flex;align-items:center;gap:14px;margin-top:34px}
+.dot{width:34px;height:4px;background:var(--hair);transition:background .3s,transform .3s}
+.dot.active{background:var(--ink);transform:scaleY(2)}
+.voices-arrows{margin-left:auto;display:flex;gap:8px}
+.arrow-btn{width:44px;height:44px;border:var(--line);display:grid;place-items:center;font-size:16px;transition:background .25s,color .25s,transform .25s var(--soft)}
+.arrow-btn:hover{background:var(--hl-bg);color:var(--hl-fg);transform:translateY(-2px)}
+
+/* CONTACT */
+.contact{display:grid;grid-template-columns:1.1fr .9fr;border-bottom:var(--line);scroll-margin-top:calc(var(--nav-h) + 20px)}
+.contact-form{padding:52px 3vw;border-right:var(--line);min-width:0}
+.contact-form h2{font-family:'Archivo Black',sans-serif;font-size:clamp(36px,5vw,76px);line-height:.84;letter-spacing:-.055em;margin:14px 0 30px}
+.field{margin-bottom:20px;position:relative}
+.field label{display:block;font-size:9.5px;font-weight:800;letter-spacing:.16em;margin-bottom:8px;color:var(--muted)}
+.field input,.field textarea{
+  width:100%;background:transparent;border:0;border-bottom:1.5px solid var(--ink);
+  padding:10px 2px;font-family:inherit;font-size:14px;font-weight:600;color:var(--ink);
+  text-transform:none;transition:border-color .3s,background .3s,padding .3s;border-radius:0;
+}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted);opacity:1}
+.field input:-webkit-autofill,.field textarea:-webkit-autofill{
+  -webkit-text-fill-color:var(--ink);caret-color:var(--ink);
+  box-shadow:0 0 0 1000px var(--paper) inset;transition:background-color 9999s ease-in-out 0s;
+}
+.field textarea{resize:vertical;min-height:104px}
+.field input:focus,.field textarea:focus{outline:none;background:var(--acid);color:#080808;padding-inline:10px}
+.field.error input,.field.error textarea,.field.error .select-trigger{border-color:#ff3b2f;background:rgba(255,59,47,.08)}
+.field .err{display:none;font-size:9px;font-weight:800;letter-spacing:.12em;color:#ff3b2f;margin-top:6px}
+.field.error .err{display:block}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.form-note{font-size:10px;line-height:1.6;color:var(--muted);letter-spacing:.04em;margin-top:18px;margin-bottom:18px;max-width:420px}
+
+/* ============ CUSTOM SELECT (brutalist) ============ */
+.select-field{position:relative;z-index:1}
+.select-field.open{z-index:60}
+.select-trigger{
+  width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;
+  background:transparent;
+  border:0;border-bottom:1.5px solid var(--ink);
+  padding:10px 2px;
+  font-family:inherit;font-size:14px;font-weight:600;color:var(--ink);
+  text-transform:none;text-align:left;
+  transition:border-color .3s,background .3s,padding .3s;
+  cursor:pointer;
+}
+.select-trigger:hover{background:color-mix(in srgb,var(--ink) 6%,transparent)}
+.select-trigger:focus{outline:none;background:var(--acid);color:#080808;padding-inline:10px}
+.select-field.open .select-trigger{background:var(--acid);color:#080808;padding-inline:10px}
+.select-arrow{
+  display:inline-block;font-size:11px;line-height:1;
+  transition:transform .35s var(--ease);
+}
+.select-field.open .select-arrow{transform:rotate(180deg)}
+.select-menu{
+  position:absolute;top:calc(100% + 0px);left:0;right:0;
+  background:var(--paper);border:1.5px solid var(--ink);border-top:0;
+  max-height:min(300px,60vh);overflow-y:auto;
+  opacity:0;visibility:hidden;transform:translateY(-6px);
+  transition:opacity .2s var(--soft),transform .25s var(--soft),visibility 0s linear .25s;
+  box-shadow:6px 6px 0 var(--ink);
+}
+.select-field.open .select-menu{
+  opacity:1;visibility:visible;transform:none;
+  transition:opacity .2s var(--soft),transform .25s var(--soft),visibility 0s;
+}
+.select-menu li{
+  padding:12px 14px;font-size:12.5px;font-weight:700;
+  text-transform:none;letter-spacing:.01em;
+  border-bottom:1px solid var(--hair);
+  cursor:pointer;
+  transition:background .15s,color .15s,padding .2s var(--ease);
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+}
+.select-menu li:last-child{border-bottom:0}
+.select-menu li:hover,.select-menu li:focus{background:var(--hl-bg);color:var(--hl-fg);outline:none;padding-left:20px}
+.select-menu li[aria-selected="true"]{background:var(--acid);color:#080808;font-weight:800}
+.select-menu li[aria-selected="true"]::after{content:"✓";font-weight:900}
+.select-menu li:hover[aria-selected="true"]{color:#080808}
+
+.form-success{display:none;border:2px solid var(--ink);background:var(--acid);color:#080808;padding:30px;}
+.form-success.show{display:block;animation:pop .5s var(--soft)}
+@keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.form-success strong{font-family:'Archivo Black',sans-serif;font-size:26px;display:block;margin-bottom:10px;letter-spacing:-.03em}
+.form-success p{font-size:13px;line-height:1.6}
+
+.contact-info{padding:52px 3vw;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:space-between;gap:30px;min-width:0}
+body.invert .contact-info{background:var(--paper);color:var(--ink);border-left:var(--line)}
+.contact-info small{font-size:9.5px;font-weight:800;letter-spacing:.16em;opacity:.6}
+.contact-info .big{font-family:'Archivo Black',sans-serif;font-size:clamp(26px,2.9vw,44px);line-height:.95;letter-spacing:-.045em;display:block;width:fit-content;margin:14px 0 0;transition:color .3s;text-transform:none}
+.contact-info .big:hover{color:var(--acid)}
+body.invert .contact-info .big:hover{color:#080808;background:var(--acid);padding-inline:6px}
+.info-list li{display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(255,255,255,.2);padding:12px 0;font-size:11px;font-weight:700;letter-spacing:.08em}
+body.invert .info-list li{border-color:var(--hair)}
+.info-list li span:last-child{opacity:.65;text-transform:none;text-align:right}
+.socials{display:flex;gap:10px;flex-wrap:wrap}
+.socials a{border:1.5px solid currentColor;padding:8px 14px;font-size:9.5px;font-weight:800;letter-spacing:.12em;transition:background .25s,color .25s,transform .25s var(--soft)}
+.socials a:hover{background:var(--acid);color:#080808;border-color:var(--acid);transform:translateY(-3px)}
+.clock{font-family:'Archivo Black',sans-serif;font-size:clamp(20px,2.2vw,32px);letter-spacing:-.02em}
+.clock small{display:block;font-family:Inter;font-size:9px;letter-spacing:.16em;margin-bottom:6px;opacity:.6}
+
+.footer{padding:36px 3vw 30px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;font-size:10px;font-weight:700;letter-spacing:.1em}
+.footer .mid{text-align:center;color:var(--muted)}
+.footer .right{text-align:right}
+.footer a:hover{color:var(--hl-fg);background:var(--hl-bg);padding:3px 6px;margin:-3px -6px}
+
+/* MODAL */
+.modal{
+  position:fixed;inset:0;z-index:999;background:var(--acid);color:#080808;
+  display:flex;flex-direction:column;transform:translateY(calc(100% + 16px));
+  visibility:hidden;pointer-events:none;
+  transition:transform .65s var(--ease),visibility 0s linear .65s;
+  overflow-y:auto;border-top:0;
+}
+.modal.is-open{transform:translateY(0);visibility:visible;pointer-events:auto;transition:transform .65s var(--ease),visibility 0s}
+.modal-header{
+  position:sticky;top:0;z-index:10;background:var(--acid);
+  display:flex;justify-content:space-between;align-items:center;gap:20px;
+  padding:18px 3vw;border-bottom:3px solid #080808;
+}
+.modal-head-left{display:flex;align-items:baseline;gap:16px;min-width:0}
+.modal-index{font-size:10px;font-weight:800;letter-spacing:.16em;white-space:nowrap}
+.modal-header h2{font-family:'Archivo Black',sans-serif;font-size:clamp(26px,4.4vw,58px);line-height:1;letter-spacing:-.045em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.modal-head-right{display:flex;align-items:center;gap:8px}
+.modal-head-right .arrow-btn{border-color:#080808;color:#080808}
+.modal-head-right .arrow-btn:hover{background:#080808;color:var(--acid)}
+.close-btn{
+  border:2px solid #080808;color:#080808;font-family:'Archivo Black',sans-serif;font-size:13px;
+  padding:11px 20px;letter-spacing:.04em;transition:background .25s,color .25s;
+}
+.close-btn:hover{background:#080808;color:var(--acid)}
+.modal-body{display:grid;grid-template-columns:1fr 1fr;flex:1;min-height:0}
+.modal-image{position:relative;border-right:3px solid #080808;min-height:52vh;overflow:hidden;background:#111}
+.modal-image img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;
+  filter:grayscale(1);
+  transition:filter .8s var(--soft),transform 1.2s var(--soft);
+}
+.modal-image:hover img{filter:grayscale(1)}
+.modal-info{padding:40px 4vw 48px;display:flex;flex-direction:column;gap:26px;overflow-y:auto}
+.modal-meta{display:flex;gap:8px;flex-wrap:wrap}
+.meta-tag{border:1.5px solid #080808;padding:6px 14px;font-size:10px;font-weight:800;letter-spacing:.1em;border-radius:60px}
+.modal-desc{font-size:clamp(18px,2vw,26px);font-weight:600;line-height:1.35;max-width:640px;text-transform:none}
+.modal-details{font-size:14px;line-height:1.7;opacity:.78;max-width:600px;text-transform:none}
+.deliverables{border-top:1.5px solid rgba(8,8,8,.25)}
+.deliverables li{display:flex;justify-content:space-between;border-bottom:1.5px solid rgba(8,8,8,.25);padding:10px 0;font-size:11px;font-weight:800;letter-spacing:.1em}
+.deliverables li span:last-child{opacity:.55}
+.visit-btn{
+  display:inline-flex;align-items:center;gap:10px;width:max-content;margin-top:auto;
+  font-family:'Archivo Black',sans-serif;font-size:15px;
+  background:#080808;color:#f5f0e6;
+  padding:16px 30px;border:2px solid #080808;transition:all .3s var(--soft);
+}
+.visit-btn:hover{background:transparent;color:#080808;box-shadow:6px 6px 0 #080808;transform:translate(-3px,-3px)}
+
+.toast{
+  position:fixed;left:50%;bottom:28px;transform:translate(-50%,calc(100% + 40px));z-index:9997;
+  visibility:hidden;opacity:0;pointer-events:none;
+  background:var(--hl-bg);color:var(--hl-fg);border:2px solid var(--hl-bg);
+  padding:14px 24px;font-size:10.5px;font-weight:800;letter-spacing:.12em;
+  transition:transform .5s var(--ease),opacity .2s,visibility 0s linear .5s;
+}
+.toast.show{transform:translate(-50%,0);visibility:visible;opacity:1;transition:transform .5s var(--ease),opacity .2s,visibility 0s}
+.to-top{
+  position:fixed;right:22px;bottom:22px;z-index:88;width:52px;height:52px;border:2px solid var(--ink);
+  background:var(--paper);display:grid;place-items:center;font-size:18px;
+  opacity:0;pointer-events:none;transform:translateY(14px);transition:all .4s var(--soft);
+}
+.to-top.show{opacity:1;pointer-events:auto;transform:none}
+.to-top:hover{background:var(--acid);color:#080808;transform:translateY(-4px)}
+
+@media(max-width:1100px){
+  .hero{grid-template-columns:52% 24% 24%;min-height:0}
+  .hero-values{display:none}
+  .hero-title{padding:24px 0 24px 3vw}
+  .projects{grid-template-columns:1fr 1fr}
+  .project:nth-child(3n){border-right:var(--line)}
+  .project:nth-child(2n){border-right:0}
+  .project:nth-last-child(-n+3){border-bottom:var(--line)}
+  .project:nth-last-child(-n+2){border-bottom:0}
+  .about{grid-template-columns:1fr}
+  .about-copy{border-right:0;border-bottom:var(--line)}
+  .contact{grid-template-columns:1fr}
+  .contact-form{border-right:0;border-bottom:var(--line)}
+  .modal-body{grid-template-columns:1fr}
+  .modal-image{border-right:0;border-bottom:3px solid #080808;min-height:36vh;height:36vh}
+}
+@media(max-width:900px){
+  .tag{display:none}
+}
+@media(max-width:820px){
+  .links,.tag{display:none}
+  .nav{grid-template-columns:1fr auto}
+  .burger{display:grid}
+  .section-head{grid-template-columns:1fr;align-items:start}
+  .section-note{text-align:left}
+  .acc-inner{grid-template-columns:1fr;padding-left:3vw}
+  .acc-head{grid-template-columns:56px 1fr auto;padding-block:18px}
+  .footer{grid-template-columns:1fr;text-align:left;gap:12px}
+  .footer .mid,.footer .right{text-align:left}
+}
+@media(max-width:640px){
+  .hero{display:block;min-height:0}
+  .hero-title{padding:26px 5vw 6px}
+  .hero h1{font-size:17vw;line-height:.78}
+  .hero-copy{padding:12px 5vw 24px}
+  .hero-copy p{max-width:34ch}
+  .hero-art{height:270px;overflow:hidden}
+  .circle{width:250px;height:250px;top:-24px;left:26%}
+  .circle.two{width:190px;height:190px;top:78px;left:56%}
+  .badge{width:80px;height:80px}
+  .hero-scroll{display:none}
+  .stats-bar{grid-template-columns:1fr 1fr 1fr}
+  .stats-bar li{padding:16px 3vw}
+  .stats-bar strong{font-size:28px}
+  .projects{grid-template-columns:1fr}
+  .project{border-right:0!important;border-bottom:var(--line)!important;padding-inline:5vw}
+  .project:last-child{border-bottom:0!important}
+  .thumb{height:230px}
+  .stats{grid-template-columns:1fr 1fr}
+  .stats strong{font-size:36px}
+  .form-row{grid-template-columns:1fr}
+  .voices{padding:40px 5vw}
+  .modal-head-right .arrow-btn{display:none}
+  .modal-header{padding:14px 5vw}
+  .modal-info{padding:30px 5vw 40px}
+  .modal-image{min-height:280px;height:280px}
+  .to-top{right:14px;bottom:14px;width:46px;height:46px}
+  .nav{height:64px}
+  .brand{gap:10px}
+  .logo-anim{width:32px;height:32px;font-size:28px}
+  .section-head,.filters,.about-copy,.panel,.contact-form,.contact-info{padding-left:5vw;padding-right:5vw}
+  .acc-head{padding-inline:5vw}
+  .acc-head:hover{padding-left:calc(5vw + 10px)}
+  .acc-inner{padding:24px 5vw 28px}
+  .footer{padding:30px 5vw 84px}
+  .contact-info .big{font-size:clamp(28px,10vw,44px)}
+  .toast{width:calc(100% - 28px);text-align:center;bottom:14px}
+  .cursor{display:none!important}
+  body.has-cursor,body.has-cursor a,body.has-cursor button,body.has-cursor input,
+  body.has-cursor textarea,body.has-cursor select,body.has-cursor label,
+  body.has-cursor .select-trigger,body.has-cursor .select-menu li{cursor:auto}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none}
+}
+@media(hover:none){
+  .acc-item:not(.open) .acc-head:hover{background:transparent;color:inherit;padding-left:3vw}
+}
+@media(hover:none) and (max-width:640px){
+  .acc-item:not(.open) .acc-head:hover{padding-left:5vw}
+}
+@supports not (background:color-mix(in srgb,#000 7%,#fff)){.project:hover{background:#e5e3dc}body.invert .project:hover{background:#151515}}
+</style>
+<link rel="stylesheet" href="assets/responsive.css">
+</head>
+<body>
+<script>
+  (function(){
+    try {
+      var saved = localStorage.getItem('vm-theme');
+      var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var dark;
+      if (saved === 'dark' || saved === 'invert') {dark = true;} else if (saved === 'light') {dark = false;} else {dark = prefersDark;}
+      if (dark) document.body.classList.add('invert');
+    } catch(e){}
+  })();
+</script>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <span class="loader-mark" data-music-logo data-logo-intro><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M51.753 41.56C51.666 41.041 51.753 40.998 52.013 40.738C52.705 40.089 53.614 39.18 54.436 38.271C58.072 34.289 60.236 29.139 60.236 24.248C60.236 20.483 59.197 16.761 57.423 14.164C56.773 13.212 55.648 12.0 55.172 12.0C54.566 12.0 53.224 13.125 52.359 14.077C49.156 17.626 48.117 23.036 48.117 27.538C48.117 30.048 48.42 32.861 48.723 34.636C48.81 35.155 48.853 35.241 48.334 35.674C45.564 37.968 42.577 40.608 40.327 43.378C37.341 47.1 35.479 51.125 35.479 55.756C35.479 63.287 40.63 70.428 51.233 70.428C52.229 70.428 53.354 70.342 54.22 70.169C54.696 70.082 54.782 70.039 54.869 70.558C55.388 73.458 56.038 77.223 56.038 79.257C56.038 85.663 51.71 86.442 49.156 86.442C46.819 86.442 45.694 85.749 45.694 85.187C45.694 84.884 46.083 84.754 47.079 84.451C48.42 84.062 49.978 82.893 49.978 80.383C49.978 78.002 48.464 75.968 45.823 75.968C42.924 75.968 41.192 78.262 41.192 80.945C41.192 83.759 42.88 88.0 49.416 88.0C52.315 88.0 57.942 86.702 57.942 79.344C57.942 76.877 57.163 72.765 56.687 70.082C56.6 69.563 56.644 69.606 57.249 69.346C61.621 67.615 64.521 63.936 64.521 59.046C64.521 53.506 60.452 48.615 54.09 48.615C52.965 48.615 52.965 48.615 52.835 47.836ZM55.821 18.708C57.249 18.708 58.418 19.877 58.418 22.257C58.418 25.244 56.99 28.014 53.614 31.39C52.921 32.082 51.883 33.077 50.887 33.943C50.584 34.203 50.411 34.159 50.325 33.597C50.151 32.472 50.065 31.0 50.065 29.615C50.065 22.863 53.181 18.708 55.821 18.708ZM51.104 48.182C51.233 49.005 51.233 48.961 50.454 49.221C46.646 50.519 44.179 53.938 44.179 57.617C44.179 61.513 46.213 64.282 49.156 65.278C49.502 65.408 50.022 65.538 50.325 65.538C50.671 65.538 50.844 65.321 50.844 65.062C50.844 64.759 50.498 64.629 50.195 64.499C48.377 63.72 47.079 61.859 47.079 59.868C47.079 57.401 48.767 55.54 51.407 54.804C52.099 54.631 52.186 54.674 52.272 55.15L54.436 68.048C54.523 68.524 54.479 68.524 53.83 68.654C53.138 68.784 52.272 68.87 51.407 68.87C43.833 68.87 38.942 64.672 38.942 58.656C38.942 56.103 39.375 52.683 42.967 48.615C45.564 45.715 47.555 44.114 49.589 42.469C50.022 42.123 50.108 42.166 50.195 42.642ZM54.09 55.064C54.003 54.544 54.047 54.415 54.566 54.458C58.072 54.761 60.972 57.704 60.972 61.513C60.972 64.239 59.327 66.446 56.903 67.658C56.384 67.918 56.297 67.918 56.211 67.399Z"/></svg></span>
+</div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+<div class="noise" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="Torna in cima">
+    <span class="logo-anim" data-music-logo aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M51.753 41.56C51.666 41.041 51.753 40.998 52.013 40.738C52.705 40.089 53.614 39.18 54.436 38.271C58.072 34.289 60.236 29.139 60.236 24.248C60.236 20.483 59.197 16.761 57.423 14.164C56.773 13.212 55.648 12.0 55.172 12.0C54.566 12.0 53.224 13.125 52.359 14.077C49.156 17.626 48.117 23.036 48.117 27.538C48.117 30.048 48.42 32.861 48.723 34.636C48.81 35.155 48.853 35.241 48.334 35.674C45.564 37.968 42.577 40.608 40.327 43.378C37.341 47.1 35.479 51.125 35.479 55.756C35.479 63.287 40.63 70.428 51.233 70.428C52.229 70.428 53.354 70.342 54.22 70.169C54.696 70.082 54.782 70.039 54.869 70.558C55.388 73.458 56.038 77.223 56.038 79.257C56.038 85.663 51.71 86.442 49.156 86.442C46.819 86.442 45.694 85.749 45.694 85.187C45.694 84.884 46.083 84.754 47.079 84.451C48.42 84.062 49.978 82.893 49.978 80.383C49.978 78.002 48.464 75.968 45.823 75.968C42.924 75.968 41.192 78.262 41.192 80.945C41.192 83.759 42.88 88.0 49.416 88.0C52.315 88.0 57.942 86.702 57.942 79.344C57.942 76.877 57.163 72.765 56.687 70.082C56.6 69.563 56.644 69.606 57.249 69.346C61.621 67.615 64.521 63.936 64.521 59.046C64.521 53.506 60.452 48.615 54.09 48.615C52.965 48.615 52.965 48.615 52.835 47.836ZM55.821 18.708C57.249 18.708 58.418 19.877 58.418 22.257C58.418 25.244 56.99 28.014 53.614 31.39C52.921 32.082 51.883 33.077 50.887 33.943C50.584 34.203 50.411 34.159 50.325 33.597C50.151 32.472 50.065 31.0 50.065 29.615C50.065 22.863 53.181 18.708 55.821 18.708ZM51.104 48.182C51.233 49.005 51.233 48.961 50.454 49.221C46.646 50.519 44.179 53.938 44.179 57.617C44.179 61.513 46.213 64.282 49.156 65.278C49.502 65.408 50.022 65.538 50.325 65.538C50.671 65.538 50.844 65.321 50.844 65.062C50.844 64.759 50.498 64.629 50.195 64.499C48.377 63.72 47.079 61.859 47.079 59.868C47.079 57.401 48.767 55.54 51.407 54.804C52.099 54.631 52.186 54.674 52.272 55.15L54.436 68.048C54.523 68.524 54.479 68.524 53.83 68.654C53.138 68.784 52.272 68.87 51.407 68.87C43.833 68.87 38.942 64.672 38.942 58.656C38.942 56.103 39.375 52.683 42.967 48.615C45.564 45.715 47.555 44.114 49.589 42.469C50.022 42.123 50.108 42.166 50.195 42.642ZM54.09 55.064C54.003 54.544 54.047 54.415 54.566 54.458C58.072 54.761 60.972 57.704 60.972 61.513C60.972 64.239 59.327 66.446 56.903 67.658C56.384 67.918 56.297 67.918 56.211 67.399Z"/></svg></span>
+    <span>Lezioni di Musica <br> Maestro Vittorio Massa</span>
+  </a>
+  <nav class="links" aria-label="Navigazione principale">
+    <a href="#work" data-link>Lezioni</a>
+    <a href="#about" data-link>Storia</a>
+    <a href="#process" data-link>Metodo</a>
+    <a href="#contact" data-link>Contatti</a>
+  </nav>
+  <div class="nav-right">
+    <span class="tag">La musica vive<br>oltre le note</span>
+    <button class="icon-btn" id="themeBtn" aria-label="Inverti colori" aria-pressed="false" title="Inverti colori">◐</button>
+    <button class="burger" id="burger" aria-label="Apri menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mobileMenu" aria-label="Menu mobile">
+  <a href="#work">Lezioni</a>
+  <a href="#about">Storia</a>
+  <a href="#process">Metodo</a>
+  <a href="#voices">Testimonianze</a>
+  <a href="#contact">Contatti</a>
+  <div class="mm-foot">INFO@VITTORIOMASSA.IT — MILANO / CANTÙ</div>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-title">
+    <h1><span>Si sente</span><span>si fa</span><span>muta</span><span>la musica</span></h1>
+  </div>
+  <div class="hero-copy">
+    <p>C’è un brano che vorresti suonare o un’idea che vuoi trasformare in musica? Partiamo da lì. <br> Lezioni a Milano, Cantù e online</p>
+    <a class="hero-cta" href="#work">Trova il tuo percorso <span class="arrow"><svg class="ui-arrow ui-arrow--right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span></a>
+  </div>
+  <div class="hero-art" id="heroArt">
+    <div class="circle" data-parallax="18"></div>
+    <div class="circle two" data-parallax="-26"></div>
+    <!-- immagine fissa: nessun parallax, nessun hover movimento -->
+    <div class="hero-img">
+      <img src="faccia.png" alt="Vittorio Massa" loading="eager">
+    </div>
+    <svg class="badge" viewBox="0 0 120 120" aria-hidden="true">
+      <defs>
+        <path id="badgePath" d="M60,60 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0"/>
+      </defs>
+      <text textLength="252" lengthAdjust="spacing"><textPath href="#badgePath" startOffset="2%">ISCRIZIONI · APERTE ·</textPath></text>
+    </svg>
+  </div>
+  <ul class="hero-values">
+    <li>Dedizione</li>
+    <li>Metodo</li>
+    <li>Presenza</li>
+    <li>Armonia</li>
+  </ul>
+  <div class="hero-scroll"><i></i> SCROLL</div>
+</section>
+
+<!-- STATS BAR -->
+<ul class="stats-bar reveal">
+  <li><strong data-count="15" data-suffix="+">0</strong><span>Anni di musica</span></li>
+  <li><strong data-count="200" data-suffix="+">0</strong><span>Studenti formati</span></li>
+  <li><strong data-count="6" data-suffix="">0</strong><span>Discipline</span></li>
+</ul>
+
+<!-- LEZIONI -->
+<section id="work" style="scroll-margin-top:calc(var(--nav-h) + 20px)">
+  <div class="section-head reveal">
+    <div>
+      <span class="eyebrow">Corsi</span>
+      <h2>Lezioni</h2>
+    </div>
+    <p class="section-note">Scegli da dove vuoi partire<br> In ogni percorso trovi cosa affrontiamo<br> Non sai quale fa per te? <br> Chiamami o parliamone insieme di persona</p>
+  </div>
+
+  <!-- FILTRI PER AREA -->
+  <div class="filters reveal" id="filters" role="tablist" aria-label="Filtra corsi per area">
+    <button class="chip active" data-filter="all">Tutti <small>06</small></button>
+    <button class="chip" data-filter="strumenti">Strumenti <small>02</small></button>
+    <button class="chip" data-filter="produzione">Produzione <small>02</small></button>
+    <button class="chip" data-filter="teoria">Teoria <small>02</small></button>
+  </div>
+
+  <div class="projects" id="projects">
+
+    <article class="project reveal" tabindex="0" role="button"
+      data-cat="strumenti" data-bg="chitarra" data-year="Base → Avanzato"
+      data-title="Chitarra &amp; Basso" data-client="Strumenti"
+      data-desc="Costruiamo insieme tecnica, ritmo e un repertorio che ti venga voglia di suonare."
+      data-details="Partiamo dal tuo livello e da ciò che vuoi fare: accompagnare una voce, costruire una linea di basso, improvvisare o suonare in una band. Lavoriamo su postura, tocco e precisione ritmica, poi applichiamo ogni passaggio a brani rock, pop, funk, jazz o classici. Scale e arpeggi diventano materiale da usare, non soltanto esercizi da ripetere."
+      data-deliverables="Postura, tocco e coordinazione|Accordi e accompagnamento|Linee di basso, timing e groove|Scale, arpeggi e improvvisazione|Lettura e orecchio musicale|Repertorio scelto insieme"
+      data-img="assets/courses/guitar.png"
+      data-img-alt="Chitarra elettrica e basso"
+      data-audience="Per chi prende in mano lo strumento per la prima volta, riprende dopo una pausa o vuole superare un punto di stallo." data-practice="Un brano diventa il nostro laboratorio: isoliamo il passaggio difficile, capiamo come affrontarlo e lo rimettiamo nella musica." data-link="#contact">
+      <div class="project-top"><span class="num">01</span><span class="view-btn">Il percorso <svg class="ui-arrow ui-arrow--diagonal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span></div>
+      <div class="thumb chitarra"></div>
+      <h3>Chitarra &amp; Basso</h3>
+      <p>I brani che ami. Il groove che cerchi.</p>
+      <ul class="tags"><li>Strumenti</li><li aria-label="Base a Avanzato">Base <svg class="ui-arrow ui-arrow--right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg> Avanzato</li></ul>
+    </article>
+
+    <article class="project reveal" tabindex="0" role="button"
+      data-cat="strumenti" data-bg="pianoforte" data-year="Base → Avanzato"
+      data-title="Pianoforte" data-client="Strumenti"
+      data-desc="Siediti al piano con una direzione chiara. Impariamo a far dialogare le mani e a dare espressione alle note, un brano alla volta."
+      data-details="Lettura, coordinazione, accordi e dinamica si incontrano su un repertorio vicino ai tuoi gusti: classica, pop e colonne sonore. Se inizi da zero, costruiamo le basi con gradualità. Se hai già studiato, individuiamo cosa ti frena e lavoriamo su tecnica, fluidità e interpretazione, senza perdere il piacere di suonare."
+      data-deliverables="Postura e tecnica delle mani|Coordinazione e indipendenza|Lettura di ritmo e spartito|Accordi e accompagnamento|Dinamiche e interpretazione|Repertorio e preparazione della performance"
+      data-img="assets/courses/piano.png"
+      data-img-alt="Tastiera di un pianoforte"
+      data-audience="Per principianti, per chi vuole riprendere e per chi cerca più sicurezza e libertà sulla tastiera." data-practice="Scomponiamo un pezzo in parti affrontabili: prima capisci il movimento e il ritmo, poi unisci le mani e lavori sul suono." data-link="#contact">
+      <div class="project-top"><span class="num">02</span><span class="view-btn">Il percorso <svg class="ui-arrow ui-arrow--diagonal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span></div>
+      <div class="thumb pianoforte"></div>
+      <h3>Pianoforte</h3>
+      <p>Dalle prime note a un brano tutto tuo.</p>
+      <ul class="tags"><li>Strumenti</li><li aria-label="Base a Avanzato">Base <svg class="ui-arrow ui-arrow--right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg> Avanzato</li></ul>
+    </article>
+
+    <article class="project reveal" tabindex="0" role="button"
+      data-cat="produzione" data-bg="produzione" data-year="Base → Avanzato"
+      data-title="Produzione Elettronica" data-client="Produzione"
+      data-desc="Hai un’idea che continua a girare in loop? Diamole una struttura, un suono e una direzione, fino a costruire un brano completo."
+      data-details="Lavoriamo nella DAW — Logic, Ableton o FL Studio — mettendo subito in pratica MIDI, sintesi, campionamento e arrangiamento. Impari a scegliere i suoni, costruire un groove e far evolvere un’idea tra strofa, ritornello e transizioni. Affrontiamo poi equilibrio dei volumi, effetti e principi di mix e mastering, sempre al servizio del pezzo."
+      data-deliverables="Orientamento nella DAW e organizzazione del progetto|Beat, MIDI e groove|Sintesi e sound design|Campionamento e trattamento del suono|Struttura, arrangiamento e transizioni|Mixing, mastering ed esportazione"
+      data-img="assets/courses/synth.png"
+      data-img-alt="Sintetizzatore e drum machine"
+      data-audience="Per chi apre una DAW per la prima volta e per chi produce già ma lascia troppi progetti incompiuti." data-practice="Partiamo da un beat, un giro di accordi o un tuo progetto. Ogni scelta viene ascoltata nel contesto: cosa aggiunge davvero alla traccia?" data-link="#contact">
+      <div class="project-top"><span class="num">03</span><span class="view-btn">Il percorso <svg class="ui-arrow ui-arrow--diagonal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span></div>
+      <div class="thumb produzione"></div>
+      <h3>Produzione Elettronica</h3>
+      <p>Quel loop può diventare una canzone.</p>
+      <ul class="tags"><li>Produzione</li><li aria-label="Base a Avanzato">Base <svg class="ui-arrow ui-arrow--right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg> Avanzato</li></ul>
+    </article>
+
+    <article class="project reveal" tabindex="0" role="button"
+      data-cat="teoria" data-bg="teoria" data-year="Base → Avanzato"
+      data-title="Teoria &amp; Solfeggio" data-client="Teoria"
+      data-desc="Dai un nome a ciò che senti e un senso a ciò che leggi. La teoria diventa un aiuto concreto per suonare con più autonomia."
+      data-details="Note, ritmo, intervalli, scale e tonalità vengono affrontati attraverso ascolto, lettura e applicazione allo strumento. Colleghiamo il segno sul pentagramma al suono, fino a riconoscere accordi e cadenze nei brani. Il percorso segue il tuo livello: puoi costruire le basi o rimettere ordine nelle conoscenze che hai già."
+      data-deliverables="Note, pentagramma e lettura|Ritmo e solfeggio|Intervalli e ascolto|Scale e tonalità|Accordi e cadenze|Analisi e applicazione allo strumento"
+      data-img="assets/courses/teoria.png"
+      data-img-alt="Pentagrammi e matita"
+      data-audience="Per chi vuole iniziare a leggere la musica o capire meglio quello che già riesce a suonare a orecchio." data-practice="Ascoltiamo una frase, ne riconosciamo ritmo e note e la colleghiamo allo spartito. La stessa idea torna poi sullo strumento." data-link="#contact">
+      <div class="project-top"><span class="num">04</span><span class="view-btn">Il percorso <svg class="ui-arrow ui-arrow--diagonal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span></div>
+      <div class="thumb teoria"></div>
+      <h3>Teoria &amp; Solfeggio</h3>
+      <p>Capisci ciò che suoni. Ascolta di più.</p>
+      <ul class="tags"><li>Teoria</li><li aria-label="Base a Avanzato">Base <svg class="ui-arrow ui-arrow--right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg> Avanzato</li></ul>
+    </article>
+
+    <article class="project reveal" tabindex="0" role="button"
+      data-cat="teoria" data-bg="armonia" data-year="Intermedio → Avanzato"
+      data-title="Armonia &amp; Arrangiamento" data-client="Teoria"
+      data-desc="Un accordo cambia il colore di una frase. Impara a scegliere progressioni, voci e strumenti per dare forma alle tue idee."
+      data-details="Approfondiamo armonia funzionale e moderna, sostituzioni e modulazioni, collegandole all’analisi di brani reali. Studiamo come distribuire le parti, sostenere una melodia e costruire tensione e risoluzione. Poi passiamo alla scrittura: provi diverse soluzioni, le ascolti e capisci quali funzionano per il carattere del tuo brano."
+      data-deliverables="Funzioni armoniche e progressioni|Voicing e collegamento degli accordi|Sostituzioni armoniche|Modulazioni, tensione e risoluzione|Scrittura delle parti e arrangiamento|Analisi e sviluppo di composizioni"
+      data-img="assets/courses/armonia.png"
+      data-img-alt="Composizione astratta per armonia e arrangiamento"
+      data-audience="Per chi già suona e vuole iniziare a comporre, ampliare il proprio linguaggio o rendere più consapevoli gli arrangiamenti." data-practice="Prendiamo una melodia o una progressione e ne esploriamo più versioni. Il confronto tra ciò che scrivi e ciò che ascolti guida il lavoro." data-link="#contact">
+      <div class="project-top"><span class="num">05</span><span class="view-btn">Il percorso <svg class="ui-arrow ui-arrow--diagonal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span></div>
+      <div class="thumb armonia"></div>
+      <h3>Armonia &amp; Arrangiamento</h3>
+      <p>Scegli come far crescere la tua musica.</p>
+      <ul class="tags"><li>Teoria</li><li aria-label="Intermedio a Avanzato">Intermedio <svg class="ui-arrow ui-arrow--right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg> Avanzato</li></ul>
+    </article>
+
+    <article class="project reveal" tabindex="0" role="button"
+      data-cat="produzione" data-bg="registrazione" data-year="Base → Avanzato"
+      data-title="Registrazione" data-client="Produzione"
+      data-desc="Dalla prima ripresa a un mix leggibile: impara a registrare la tua musica e a riconoscere cosa migliora davvero il risultato."
+      data-details="Seguiamo il percorso del suono, dal microfono alla DAW. Affrontiamo posizionamento, catena del segnale e livelli di registrazione, poi selezione delle take, editing e comping. Nel mix lavoriamo su volumi, equalizzazione, dinamica ed effetti per dare spazio a ogni parte. Il percorso riguarda sia lo studio sia la registrazione in casa."
+      data-deliverables="Scelta e posizionamento dei microfoni|Catena del segnale e livelli|Presa diretta e organizzazione delle take|Editing e comping|Volumi, equalizzazione e dinamica|Effetti, mix finale ed esportazione"
+      data-img="assets/courses/mic.png"
+      data-img-alt="Microfono da studio con filtro antipop"
+      data-audience="Per musicisti che vogliono registrarsi e per chi desidera capire come si costruisce un suono in studio o a casa." data-practice="Confrontiamo riprese e scelte di mix, ascoltando una modifica alla volta. Impari a capire il problema prima di cercare uno strumento per risolverlo." data-link="#contact">
+      <div class="project-top"><span class="num">06</span><span class="view-btn">Il percorso <svg class="ui-arrow ui-arrow--diagonal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span></div>
+      <div class="thumb registrazione"></div>
+      <h3>Registrazione</h3>
+      <p>Fai sentire la musica come la immagini.</p>
+      <ul class="tags"><li>Produzione</li><li aria-label="Base a Avanzato">Base <svg class="ui-arrow ui-arrow--right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg> Avanzato</li></ul>
+    </article>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about" style="scroll-margin-top:calc(var(--nav-h) + 20px)">
+  <div class="about-copy reveal">
+    <span class="eyebrow">Chi sono</span>
+    <h2>La mia storia</h2>
+    <p class="lead">Strumentista, compositore e insegnante. Da oltre 15 anni vivo la musica in studio, dal vivo e in aula. Ho suonato con Le Endrigo a X Factor 2021 e collaborato con il teatro. Oggi insegno chitarra, basso, pianoforte, produzione e teoria a Milano, Cantù e online.</p>
+    <p>A lezione porto quello che ho imparato sul palco, in studio e durante gli studi. Ma il punto di partenza sei tu: la musica che ascolti, il tempo che hai e ciò che vorresti riuscire a fare. Traduciamo ogni concetto in un gesto, un suono, un brano. Così sai perché ti stai esercitando e dove stiamo andando.</p>
+    <div class="about-actions">
+      <a class="btn" href="#contact">Prenota una lezione <svg class="ui-arrow ui-arrow--right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg></a>
+      <a class="btn ghost" href="#formazione" id="formazioneBtn">La mia formazione <svg class="ui-arrow ui-arrow--down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+
+  <div class="about-side reveal">
+    <div class="image-block" role="img" aria-label="Illustrazione musicale: pentagrammi che diventano onde sonore intorno a un disco">
+      <img src="assets/about-score.svg" alt="" loading="lazy" width="640" height="480">
+      <span class="ib-label">MILANO — CANTÙ</span>
+    </div>
+    <ul class="stats">
+      <li><strong data-count="15" data-suffix="+">0</strong><span>Anni di musica</span></li>
+      <li><strong data-count="200" data-suffix="+">0</strong><span>Studenti formati</span></li>
+      <li><strong data-count="6" data-suffix="">0</strong><span>Discipline</span></li>
+      <li><strong data-count="3" data-suffix="">0</strong><span>Sedi</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- PERCORSO -->
+<section class="about-extra" id="formazione">
+  <div class="panel reveal">
+    <span class="eyebrow">Formazione &amp; Esperienza</span>
+    <h3>Il mio percorso</h3>
+    <ul class="timeline">
+      <li><span>2021</span><div><b>Le Endrigo — X Factor</b><em>Bassista e cantante nella squadra di Emma Marrone</em></div></li>
+      <li><span>2023/24</span><div><b>Teatro — “Il saggio di fine anno”</b><em>Band dello spettacolo di Camihawke</em></div></li>
+      <li><span>2017 — oggi</span><div><b>Live &amp; Studio</b><em>Autore, compositore, musicista live e in studio</em></div></li>
+      <li><span>2010 — 2014</span><div><b>Diploma in Basso Elettrico</b><em>NAM — Nuova Accademia di Musica, Milano</em></div></li>
+      <li><span>2017 — 2020</span><div><b>Laurea triennale in Composizione Pop/Rock</b><em>Conservatorio di Como — 110/110</em></div></li>
+      <li><span>2020 — 2022</span><div><b>Laurea biennale in Basso Elettrico Pop/Rock</b><em>Conservatorio di Milano — 108/110</em></div></li>
+      <li><span>2017 — 2022</span><div><b>24 CPFU — Abilitazione all'insegnamento</b><em>Conservatori di Como e Milano</em></div></li>
+      <li><span>Oggi</span><div><b>Didattica</b><em>Lezioni private a Milano, Cantù e online</em></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- METODO -->
+<section id="process" style="scroll-margin-top:calc(var(--nav-h) + 20px)">
+  <div class="section-head reveal">
+    <div>
+      <span class="eyebrow">Metodo</span>
+      <h2>Come funziona</h2>
+    </div>
+    <p class="section-note">Partiamo da ciò che ti piace e diamo una direzione.<br> Questi sono i cinque aspetti su cui lavoriamo</p>
+  </div>
+
+  <div class="acc" id="acc">
+    <div class="acc-item open">
+      <button class="acc-head" aria-expanded="true">
+        <span class="acc-num">01</span>
+        <h3>Parliamo</h3>
+        <span class="acc-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="acc-panel"><div><div class="acc-inner">
+        <p>Raccontami cosa ascolti, cosa hai già provato e cosa vorresti riuscire a suonare.<br> Valutiamo insieme il tuo punto di partenza e il tempo che puoi dedicare:<br> da qui scegliamo i primi obiettivi.</p>
+        <ul>
+          <li>Colloquio iniziale</li>
+          <li>Valutazione del livello</li>
+          <li>Definizione degli obiettivi</li>
+          <li>Piano di studio personalizzato</li>
+        </ul>
+      </div></div></div>
+    </div>
+
+    <div class="acc-item">
+      <button class="acc-head" aria-expanded="false">
+        <span class="acc-num">02</span>
+        <h3>Tecnica</h3>
+        <span class="acc-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="acc-panel"><div><div class="acc-inner">
+        <p>Una difficoltà diventa più affrontabile quando capisci da cosa nasce.<br> Lavoriamo su tecnica, ritmo e lettura con esercizi mirati, collegandoli subito ai passaggi che incontri nei brani.</p>
+        <ul>
+          <li>Tecnica di base</li>
+          <li>Lettura musicale</li>
+          <li>Scale e armonia</li>
+          <li>Esercizi mirati</li>
+        </ul>
+      </div></div></div>
+    </div>
+
+    <div class="acc-item">
+      <button class="acc-head" aria-expanded="false">
+        <span class="acc-num">03</span>
+        <h3>Repertorio</h3>
+        <span class="acc-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="acc-panel"><div><div class="acc-inner">
+        <p>Scegliamo brani che ti piacciono e che ti aiutano a fare un passo avanti.<br> Li ascoltiamo, li scomponiamo e li ricostruiamo: ogni pezzo dà un motivo concreto al lavoro sulla tecnica.</p>
+        <ul>
+          <li>Brani su misura</li>
+          <li>Analisi dei pezzi</li>
+          <li>Trascrizione</li>
+          <li>Studio guidato</li>
+        </ul>
+      </div></div></div>
+    </div>
+
+    <div class="acc-item">
+      <button class="acc-head" aria-expanded="false">
+        <span class="acc-num">04</span>
+        <h3>Espressione</h3>
+        <span class="acc-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="acc-panel"><div><div class="acc-inner">
+        <p>Dinamica, fraseggio e intenzione cambiano il modo in cui arriva una nota.<br> Esploriamo interpretazione e improvvisazione, per passare dall’eseguire un pezzo al farlo tuo.</p>
+        <ul>
+          <li>Fraseggio e dinamiche</li>
+          <li>Improvvisazione</li>
+          <li>Interpretazione</li>
+          <li>Stile personale</li>
+        </ul>
+      </div></div></div>
+    </div>
+
+    <div class="acc-item">
+      <button class="acc-head" aria-expanded="false">
+        <span class="acc-num">05</span>
+        <h3>LIVE</h3>
+        <span class="acc-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="acc-panel"><div><div class="acc-inner">
+        <p>Quando vuoi mettere alla prova ciò che hai imparato, prepariamo un’esibizione, una registrazione o una sessione con altri musicisti.<br> Lavoriamo sull’ascolto, sulla continuità e sulla gestione dell’emozione.</p>
+        <ul>
+          <li>Preparazione al palco</li>
+          <li>Suonare in gruppo</li>
+          <li>Registrazione</li>
+          <li>Gestione dell'ansia</li>
+        </ul>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<div class="clients" aria-hidden="true">
+  <div class="track">
+    <span>MILANO</span><span>CANTÙ</span><span>ONLINE</span><span>X FACTOR</span><span>NAM</span><span>CONSERVATORIO</span><span>LE ENDRIGO</span><span>TEATRO</span>
+    <span>MILANO</span><span>CANTÙ</span><span>ONLINE</span><span>X FACTOR</span><span>NAM</span><span>CONSERVATORIO</span><span>LE ENDRIGO</span><span>TEATRO</span>
+  </div>
+</div>
+
+<!-- VOICES -->
+<section class="voices" id="voices" style="scroll-margin-top:calc(var(--nav-h) + 20px)">
+  <div class="voices-heading"><span class="eyebrow reveal">La parola agli studenti</span><a class="review-link" href="https://www.superprof.com/profile" target="_blank" rel="noopener noreferrer">Leggi le recensioni su Superprof.com <svg class="ui-arrow ui-arrow--diagonal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg></a></div>
+  <div class="voices-track" id="voicesTrack">
+    <div class="voice">
+      <blockquote>Vittorio è riuscito a farmi amare il basso in poche lezioni. Spiega con pazienza e ti mette subito a tuo agio.</blockquote>
+      <footer><i></i> <b>Luca B.</b> <span>— Studente di basso</span></footer>
+    </div>
+    <div class="voice">
+      <blockquote>Mi ha preparata per un provino e non solo sono passata, ma ora suono con molta più sicurezza e consapevolezza.</blockquote>
+      <footer><i></i> <b>Martina R.</b> <span>— Studentessa di pianoforte</span></footer>
+    </div>
+    <div class="voice">
+      <blockquote>Finalmente un insegnante che unisce teoria e pratica in modo naturale. Le lezioni volano e i progressi si sentono.</blockquote>
+      <footer><i></i> <b>Andrea C.</b> <span>— Studente di chitarra e teoria</span></footer>
+    </div>
+  </div>
+
+  <div class="voices-nav">
+    <button class="dot active" data-voice="0" aria-label="Testimonianza 1"></button>
+    <button class="dot" data-voice="1" aria-label="Testimonianza 2"></button>
+    <button class="dot" data-voice="2" aria-label="Testimonianza 3"></button>
+    <div class="voices-arrows">
+      <button class="arrow-btn" id="voicePrev" aria-label="Precedente"><svg class="ui-arrow ui-arrow--left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg></button>
+      <button class="arrow-btn" id="voiceNext" aria-label="Successiva"><svg class="ui-arrow ui-arrow--right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-form reveal">
+    <span class="eyebrow">Contatti</span>
+    <h2>Suoniamo<br>insieme?</h2>
+
+    <p class="contact-intro">Dimmi cosa ti piacerebbe suonare,<br> da dove parti e quando sei disponibile.<br> Prepariamo insieme la prima lezione.</p>
+    <form id="contactForm" novalidate>
+      <div class="form-row">
+        <div class="field">
+          <label for="name">Il tuo nome *</label>
+          <input type="text" id="name" name="name" maxlength="120" placeholder="Mario Rossi" autocomplete="name">
+          <span class="err">Inserisci il tuo nome</span>
+        </div>
+        <div class="field">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" maxlength="254" placeholder="mario@email.com" autocomplete="email">
+          <span class="err">Inserisci un'email valida</span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>Corso di interesse</label>
+          <div class="select-field" data-value="Chitarra &amp; Basso" data-name="corso">
+            <button type="button" class="select-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <span class="select-value">Chitarra &amp; Basso</span>
+              <span class="select-arrow" aria-hidden="true"><svg class="ui-arrow ui-arrow--down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span>
+            </button>
+            <ul class="select-menu" role="listbox" tabindex="-1">
+              <li role="option" data-value="Chitarra &amp; Basso" aria-selected="true">Chitarra &amp; Basso</li>
+              <li role="option" data-value="Pianoforte" aria-selected="false">Pianoforte</li>
+              <li role="option" data-value="Produzione Elettronica" aria-selected="false">Produzione Elettronica</li>
+              <li role="option" data-value="Teoria &amp; Solfeggio" aria-selected="false">Teoria &amp; Solfeggio</li>
+              <li role="option" data-value="Armonia &amp; Arrangiamento" aria-selected="false">Armonia &amp; Arrangiamento</li>
+              <li role="option" data-value="Registrazione" aria-selected="false">Registrazione</li>
+              <li role="option" data-value="Non lo so ancora" aria-selected="false">Non lo so ancora</li>
+            </ul>
+            <input type="hidden" name="corso" value="Chitarra &amp; Basso">
+          </div>
+        </div>
+        <div class="field">
+          <label>Livello attuale</label>
+          <div class="select-field" data-value="Mai suonato" data-name="livello">
+            <button type="button" class="select-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <span class="select-value">Mai suonato</span>
+              <span class="select-arrow" aria-hidden="true"><svg class="ui-arrow ui-arrow--down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span>
+            </button>
+            <ul class="select-menu" role="listbox" tabindex="-1">
+              <li role="option" data-value="Mai suonato" aria-selected="true">Mai suonato</li>
+              <li role="option" data-value="Principiante" aria-selected="false">Principiante</li>
+              <li role="option" data-value="Intermedio" aria-selected="false">Intermedio</li>
+              <li role="option" data-value="Avanzato" aria-selected="false">Avanzato</li>
+            </ul>
+            <input type="hidden" name="livello" value="Mai suonato">
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="message">Raccontami di te *</label>
+        <textarea id="message" name="message" placeholder="Vorrei imparare a… Sono disponibile…" maxlength="2500"></textarea>
+        <span class="err">Aggiungi qualche dettaglio (min. 10 caratteri)</span>
+      </div>
+
+      <button class="btn" type="submit">Prepara la tua email <svg class="ui-arrow ui-arrow--right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg></button>
+      <p class="form-note">Rispondo entro 24 ore, dal lunedì al venerdì.</p>
+    </form>
+
+    <div class="form-success" id="formSuccess" role="status">
+      <strong>La tua email è pronta!</strong>
+      <p>Per inviarla, conferma dalla tua app di posta. Se non si apre automaticamente, copia il testo e scrivi a info@vittoriomassa.it.</p><div class="draft-actions"><a class="btn" id="emailDraftLink" href="mailto:info@vittoriomassa.it">Apri l’email</a><button class="btn ghost" type="button" id="copyRequest">Copia il messaggio</button></div><textarea id="emailDraftText" hidden readonly aria-label="Testo del messaggio da copiare"></textarea>
+    </div>
+  </div>
+
+  <aside class="contact-info reveal">
+    <div>
+      <small>Scrivimi</small>
+      <a class="big" href="mailto:info@vittoriomassa.it">info@<br>vittoriomassa.it</a>
+    </div>
+
+    <ul class="info-list">
+      <li><span>Sedi</span><span>Milano · Cantù · Online</span></li>
+      <li><span>Cantù</span><span>Via Belvedere 15</span></li>
+      <li><span>Milano</span><span>Via Albertini 6 · Via Cilea 18</span></li>
+      <li><span>A domicilio</span><span>Milano, Como e province</span></li>
+      <li><span>Lingue</span><span>IT / EN</span></li>
+    </ul>
+
+    <div>
+      <div class="clock"><small>Ora locale — Europe/Rome</small><span id="clock">--:--</span></div>
+      <div class="socials" style="margin-top:20px">
+        <a href="#" data-demo="Instagram">Instagram</a>
+        <a href="#" data-demo="YouTube">YouTube</a>
+        <a href="#" data-demo="Spotify">Spotify</a>
+        <a href="https://www.superprof.com/profile" target="_blank" rel="noopener noreferrer">Superprof.com</a>
+      </div>
+    </div>
+  </aside>
+</section>
+
+</main>
+
+<footer class="first-lesson" aria-labelledby="firstLessonTitle">
+  <div class="offer-price"><div class="offer-mark">35€ / h</div><div class="price-note">Dalla seconda lezione</div></div>
+  <div><div class="offer-kicker">Si comincia da qui</div>
+    <h2 id="firstLessonTitle">La prima lezione è conoscitiva.</h2>
+    <p>Porta una domanda, un brano o semplicemente la voglia.<br> Conosciamoci e scegliamo insieme il primo passo.</p>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="modal-header">
+    <div class="modal-head-left">
+      <span class="modal-index" id="mIndex">01 / 06</span>
+      <h2 id="mTitle">Corso</h2>
+    </div>
+    <div class="modal-head-right">
+      <button class="arrow-btn" id="mPrev" aria-label="Corso precedente"><svg class="ui-arrow ui-arrow--left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg></button>
+      <button class="arrow-btn" id="mNext" aria-label="Corso successivo"><svg class="ui-arrow ui-arrow--right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg></button>
+      <button class="close-btn" id="mClose">[ CHIUDI ]</button>
+    </div>
+  </div>
+
+  <div class="modal-body">
+    <div class="modal-image" id="mImage">
+      <img id="mImageImg" src="" alt="">
+    </div>
+
+    <div class="modal-info">
+      <div class="modal-meta">
+        <span class="meta-tag" id="mYear" aria-label="Base a Avanzato">Base <svg class="ui-arrow ui-arrow--right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg> Avanzato</span>
+        <span class="meta-tag" id="mCat">Corso</span>
+      </div>
+
+      <p class="modal-desc" id="mDesc">Descrizione.</p>
+      <p class="modal-details" id="mDetails">Dettagli.</p>
+      <div class="lesson-focus"><h3>È il percorso per te?</h3><p id="mAudience"></p><h3>Come lavoriamo</h3><p id="mPractice"></p></div>
+      <h3 class="lesson-topics-title">Su cosa lavoriamo</h3>
+
+      <ul class="deliverables" id="mDeliverables"></ul>
+
+      <a href="#contact" class="visit-btn" id="mVisit">CONOSCIAMOCI MEGLIO<svg class="ui-arrow ui-arrow--diagonal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<button class="to-top" id="toTop" aria-label="Torna in cima"><svg class="ui-arrow ui-arrow--up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16M13 5l7 7-7 7"/></svg></button>
+
+<script>
+(() => {
+  'use strict';
+  const $  = (s, c = document) => c.querySelector(s);
+  const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* LOADER */
+  const loader = $('#loader');
+  const hideLoader = () => {
+    if (loader.classList.contains('done')) return;
+    loader.classList.add('done');
+    setTimeout(() => loader.remove(), 900);
+  };
+  if (reduced) { loader.remove(); }
+  else { window.addEventListener('load', () => setTimeout(hideLoader, 1500), { once: true }); setTimeout(hideLoader, 2600); }
+
+  /* TOAST */
+  const toastEl = $('#toast');
+  let toastTimer;
+  const toast = (msg) => {
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2600);
+  };
+  $$('[data-demo]').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    toast(`Il profilo ${a.dataset.demo} sarà disponibile a breve`);
+  }));
+
+  /* CURSOR */
+  const cursor = $('#cursor');
+  if (window.matchMedia('(pointer:fine)').matches && !reduced) {
+    document.body.classList.add('has-cursor');
+    let mx = innerWidth / 2, my = innerHeight / 2, cx = mx, cy = my;
+    window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
+    (function raf() {
+      cx += (mx - cx) * 0.18;
+      cy += (my - cy) * 0.18;
+      cursor.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+      requestAnimationFrame(raf);
+    })();
+    const hoverSel = 'a, button, input, textarea, label, .project, .chip, .acc-head, .select-trigger, .select-menu li';
+    document.addEventListener('mouseover', e => { if (e.target.closest(hoverSel)) cursor.classList.add('is-hover'); });
+    document.addEventListener('mouseout', e => { if (e.target.closest(hoverSel)) cursor.classList.remove('is-hover'); });
+
+    const contactInfo = $('.contact-info');
+    if (contactInfo) {
+      contactInfo.addEventListener('mouseenter', () => cursor.classList.add('cursor-light'));
+      contactInfo.addEventListener('mouseleave', () => cursor.classList.remove('cursor-light'));
+    }
+  }
+
+  /* SCROLL */
+  const progress = $('#progress');
+  const nav = $('#nav');
+  const toTop = $('#toTop');
+  const sections = ['work', 'about', 'process', 'contact'].map(id => $('#' + id));
+  const navLinks = $$('.links a[data-link]');
+  const onScroll = () => {
+    const st = window.scrollY;
+    const h = document.documentElement.scrollHeight - innerHeight;
+    progress.style.transform = `scaleX(${h > 0 ? st / h : 0})`;
+    nav.classList.toggle('shrink', st > 40);
+    toTop.classList.toggle('show', st > 700);
+    let current = '';
+    sections.forEach(sec => { if (sec && st >= sec.offsetTop - innerHeight * 0.35) current = sec.id; });
+    navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current));
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' }));
+
+  /* MOBILE MENU */
+  const burger = $('#burger');
+  const menu = $('#mobileMenu');
+  const toggleMenu = (force) => {
+    const open = force !== undefined ? force : !menu.classList.contains('open');
+    menu.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Chiudi menu' : 'Apri menu');
+    document.body.classList.toggle('no-scroll', open);
+  };
+  burger.addEventListener('click', () => toggleMenu());
+  $$('#mobileMenu a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+  const desktopMenu = window.matchMedia('(min-width: 821px)');
+  desktopMenu.addEventListener('change', e => {
+    if (e.matches && menu.classList.contains('open')) toggleMenu(false);
+  });
+
+  /* THEME */
+  const themeBtn = $('#themeBtn');
+  const themeMeta = $('meta[name="theme-color"]');
+  const saveTheme = v => { try { localStorage.setItem('vm-theme', v); } catch(e){} };
+  const syncTheme = () => {
+    const dark = document.body.classList.contains('invert');
+    themeBtn.setAttribute('aria-pressed', String(dark));
+    if (themeMeta) themeMeta.setAttribute('content', dark ? '#0a0a0a' : '#f5f0e6');
+  };
+  syncTheme();
+    themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('invert');
+    const dark = document.body.classList.contains('invert');
+    saveTheme(dark ? 'dark' : 'light');
+    syncTheme();
+    toast(dark ? 'Dark mode ✳' : 'Light mode ✳');
+  });
+
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+  const applyOSTheme = (e) => {
+    try {
+      const saved = localStorage.getItem('vm-theme');
+      if (saved) return; // l’utente ha già scelto, non tocchiamo nulla
+
+      document.body.classList.toggle('invert', e.matches);
+      syncTheme();
+    } catch(err){}
+  };
+  if (mq.addEventListener) {
+    mq.addEventListener('change', applyOSTheme);
+  } else if (mq.addListener) {
+    mq.addListener(applyOSTheme); // Safari vecchi
+  }
+
+  /* REVEAL */
+  const revealEls = $$('.reveal');
+  if ('IntersectionObserver' in window && !reduced) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en, i) => {
+        if (en.isIntersecting) { setTimeout(() => en.target.classList.add('in'), i * 70); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    revealEls.forEach(el => io.observe(el));
+  } else { revealEls.forEach(el => el.classList.add('in')); }
+
+  /* COUNTERS */
+  const counters = $$('[data-count]');
+  const runCounter = (el) => {
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || '';
+    if (reduced) { el.textContent = target + suffix; return; }
+    const dur = 1300, start = performance.now();
+    const step = now => {
+      const p = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  if ('IntersectionObserver' in window) {
+    const cio = new IntersectionObserver((entries) => {
+      entries.forEach(en => { if (en.isIntersecting) { runCounter(en.target); cio.unobserve(en.target); } });
+    }, { threshold: 0.5 });
+    counters.forEach(c => cio.observe(c));
+  } else counters.forEach(runCounter);
+
+  /* PARALLAX — solo sui cerchi, NON sull'immagine */
+  const hero = $('.hero');
+  const parallaxEls = $$('.hero [data-parallax]');
+  if (hero && !reduced && window.matchMedia('(pointer:fine)').matches) {
+    hero.addEventListener('mousemove', (e) => {
+      const r = hero.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      parallaxEls.forEach(el => {
+        const f = parseFloat(el.dataset.parallax);
+        el.style.transform = `translate(${px * f}px, ${py * f}px)`;
+      });
+    });
+    hero.addEventListener('mouseleave', () => { parallaxEls.forEach(el => { el.style.transform = ''; }); });
+  }
+
+  /* FILTER — ora per area (strumenti / produzione / teoria) */
+  const cards = $$('.project');
+  const chips = $$('.chip');
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const f = chip.dataset.filter;
+      cards.forEach(card => {
+        const show = f === 'all' || card.dataset.cat === f;
+        if (show) {
+          card.classList.remove('is-hidden');
+          if (!reduced) card.animate(
+            [{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'none' }],
+            { duration: 420, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'both' }
+          );
+        } else card.classList.add('is-hidden');
+      });
+    });
+  });
+
+  /* CUSTOM SELECT */
+  const selectFields = $$('.select-field');
+  selectFields.forEach(field => {
+    const trigger = $('.select-trigger', field);
+    const valueEl = $('.select-value', field);
+    const hidden  = $('input[type="hidden"]', field);
+    const options = $$('.select-menu li', field);
+
+    const open = () => {
+      selectFields.forEach(f => {
+        f.classList.remove('open');
+        $('.select-trigger', f).setAttribute('aria-expanded', 'false');
+      });
+      field.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
+    };
+    const close = () => {
+      field.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+    };
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      field.classList.contains('open') ? close() : open();
+    });
+
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        open();
+        const sel = $('.select-menu li[aria-selected="true"]', field) || options[0];
+        if (sel) sel.focus();
+      }
+    });
+
+    options.forEach((opt, idx) => {
+      opt.addEventListener('click', () => {
+        const val = opt.dataset.value;
+        valueEl.textContent = val;
+        field.dataset.value = val;
+        if (hidden) hidden.value = val;
+        options.forEach(o => o.setAttribute('aria-selected', 'false'));
+        opt.setAttribute('aria-selected', 'true');
+        close();
+        trigger.focus();
+      });
+      opt.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); opt.click(); }
+        if (e.key === 'Escape') { e.preventDefault(); close(); trigger.focus(); }
+        if (e.key === 'ArrowDown') { e.preventDefault(); (options[idx+1] || options[0]).focus(); }
+        if (e.key === 'ArrowUp')   { e.preventDefault(); (options[idx-1] || options[options.length-1]).focus(); }
+      });
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.select-field')) {
+      selectFields.forEach(f => {
+        f.classList.remove('open');
+        $('.select-trigger', f).setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+
+  /* MODAL */
+  const modal     = $('#modal');
+  const mTitle    = $('#mTitle');
+  const mIndex    = $('#mIndex');
+  const mYear     = $('#mYear');
+  const mCat      = $('#mCat');
+  const mDesc     = $('#mDesc');
+  const mDetails  = $('#mDetails');
+  const mImageImg = $('#mImageImg');
+  const mDeliv    = $('#mDeliverables');
+  const mVisit    = $('#mVisit');
+  const mClose    = $('#mClose');
+  const mPrev     = $('#mPrev');
+  const mNext     = $('#mNext');
+
+  const data = cards.map(card => ({
+    title: card.dataset.title,
+    client: card.dataset.client,
+    cat: card.dataset.cat,
+    year: card.dataset.year,
+    bg: card.dataset.bg,
+    desc: card.dataset.desc,
+    audience: card.dataset.audience,
+    practice: card.dataset.practice,
+    details: card.dataset.details,
+    deliverables: (card.dataset.deliverables || '').split('|').filter(Boolean),
+    img: card.dataset.img,
+    imgAlt: card.dataset.imgAlt || card.dataset.title,
+    link: card.dataset.link || '#'
+  }));
+
+  let currentIndex = 0;
+  let lastFocused = null;
+  const pad = n => String(n).padStart(2, '0');
+  const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+
+  function renderModal(i) {
+    const p = data[i];
+    if (!p) return;
+    currentIndex = i;
+    mTitle.textContent  = p.title;
+    mIndex.textContent  = `${pad(i + 1)} / ${pad(data.length)}`;
+    const levels = p.year.split('→').map(level => level.trim());
+    mYear.replaceChildren();
+    levels.forEach((level, index) => {
+      if (index) mYear.append($('.ui-arrow--right').cloneNode(true));
+      mYear.append(document.createTextNode(level));
+    });
+    mYear.setAttribute('aria-label', levels.join(' a '));
+    mCat.textContent    = cap(p.cat);
+    mDesc.textContent   = p.desc;
+    mDetails.textContent = p.details;
+    $('#mAudience').textContent = p.audience;
+    $('#mPractice').textContent = p.practice;
+    mImageImg.src = p.img;
+    mImageImg.alt = p.imgAlt;
+    mVisit.setAttribute('href', p.link);
+    mDeliv.innerHTML = p.deliverables
+      .map((d, k) => `<li><span>${d}</span><span>${pad(k + 1)}</span></li>`)
+      .join('');
+  }
+
+  function openModal(i) {
+    lastFocused = document.activeElement;
+    renderModal(i);
+    modal.classList.add('is-open');
+    document.body.classList.add('no-scroll', 'modal-open');
+    modal.scrollTop = 0;
+    setTimeout(() => mClose.focus(), 420);
+  }
+
+  function closeModal() {
+    modal.classList.remove('is-open');
+    document.body.classList.remove('no-scroll', 'modal-open');
+    if (lastFocused) lastFocused.focus();
+  }
+
+  function step(dir) {
+    const next = (currentIndex + dir + data.length) % data.length;
+    renderModal(next);
+    modal.scrollTop = 0;
+    if (!reduced) mImageImg.animate([{ opacity: .3 }, { opacity: 1 }], { duration: 380, easing: 'ease-out' });
+  }
+
+  cards.forEach((card, i) => {
+    card.addEventListener('click', () => openModal(i));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(i); }
+    });
+  });
+
+  mClose.addEventListener('click', closeModal);
+  mPrev.addEventListener('click', () => step(-1));
+  mNext.addEventListener('click', () => step(1));
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+  mVisit.addEventListener('click', (e) => {
+    e.preventDefault();
+    const selected = data[currentIndex].title;
+    const courseField = $('.select-field[data-name="corso"]');
+    const option = $$('.select-menu li', courseField).find(el => el.dataset.value === selected);
+    if (option) option.click();
+    closeModal();
+    document.querySelector('#contact').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('is-open')) {
+      if (e.key === 'Escape' && menu.classList.contains('open')) toggleMenu(false);
+      return;
+    }
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowRight') step(1);
+    if (e.key === 'ArrowLeft') step(-1);
+  });
+
+  let touchX = null;
+  modal.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+  modal.addEventListener('touchend', e => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 70) step(dx < 0 ? 1 : -1);
+    touchX = null;
+  }, { passive: true });
+
+  /* ACCORDION */
+  const accItems = $$('.acc-item');
+  accItems.forEach(item => {
+    const head = $('.acc-head', item);
+    head.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      accItems.forEach(o => {
+        o.classList.remove('open');
+        $('.acc-head', o).setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        head.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  /* VOICES SLIDER */
+  const track = $('#voicesTrack');
+  const dots = $$('.dot');
+  const totalVoices = dots.length;
+  let voiceIdx = 0, voiceTimer;
+  function goVoice(i) {
+    voiceIdx = (i + totalVoices) % totalVoices;
+    track.style.transform = `translateX(-${voiceIdx * 100}%)`;
+    dots.forEach((d, k) => d.classList.toggle('active', k === voiceIdx));
+  }
+  function autoVoice() {
+    if (reduced) return;
+    clearInterval(voiceTimer);
+    voiceTimer = setInterval(() => goVoice(voiceIdx + 1), 6500);
+  }
+  dots.forEach(d => d.addEventListener('click', () => { goVoice(+d.dataset.voice); autoVoice(); }));
+  $('#voicePrev').addEventListener('click', () => { goVoice(voiceIdx - 1); autoVoice(); });
+  $('#voiceNext').addEventListener('click', () => { goVoice(voiceIdx + 1); autoVoice(); });
+  $('.voices').addEventListener('mouseenter', () => clearInterval(voiceTimer));
+  $('.voices').addEventListener('mouseleave', autoVoice);
+  goVoice(0); autoVoice();
+
+  /* CLOCK + YEAR + FORMAZIONE */
+  const clockEl = $('#clock');
+  const tick = () => {
+    try {
+      clockEl.textContent = new Date().toLocaleTimeString('it-IT', {
+        timeZone: 'Europe/Rome', hour: '2-digit', minute: '2-digit'
+      });
+    } catch (err) {
+      clockEl.textContent = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+    }
+  };
+  tick();
+  setInterval(tick, 15000);
+
+
+  $('#formazioneBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector('#formazione');
+    if (target) target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+  });
+
+})();
+</script>
+<script src="assets/logo-data.js" defer></script>
+<script src="assets/logo.js" defer></script>
+<script src="assets/contact.js" defer></script>
+</body>
+</html>

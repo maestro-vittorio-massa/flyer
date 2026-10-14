@@ -1,6 +1,10 @@
-# Vittorio Massa — musical identity
+# Vittorio Massa
 
-Open `demo.html` for the updated website, or `logo.html` for the interactive logo study. Keep `assets/` and `faccia.png` beside both HTML files. No installation or build is required. The logo works offline; the existing website still requests its Google Fonts.
+Open `index.html` for the updated website.
+
+Keep `assets/` and `faccia.png` beside both HTML files. 
+
+No installation or build is required. The logo works offline; the existing website still requests its Google Fonts.
 
 Eight symbols: treble clef, bass clef, quarter note, eighth note, quarter rest, sharp, flat, fermata. Artwork uses vector outlines from Steinberg's Bravura; the original license is included in `assets/Bravura-LICENSE.txt`.
 
