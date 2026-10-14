@@ -1,4 +1,12 @@
 /* Keep content readable between breakpoints, including narrow phones. */
+/* Older mobile browsers lack individual translate properties. */
+@supports not (translate: 0 0) {
+  @keyframes floatCircle { 0%,100% { transform: translate(0,0); } 50% { transform: translate(22px,-26px); } }
+  @keyframes floatCircle2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-18px,20px); } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal.is-pending { opacity: 1; transform: none; }
+}
 .image-block, .image-block:hover { background: #e9e3d6; min-height: 360px; }
 .image-block::after { display: none; }
 .image-block > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }

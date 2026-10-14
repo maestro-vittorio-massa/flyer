@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<script src="assets/navigation.js"></script>
+<script src="assets/navigation.js?v=410937e4b32a"></script>
 <title>𝄞 LEZIONI DI MUSICA | Maestro Vittorio Massa</title>
 <meta name="description" content="Lezioni di chitarra e basso, pianoforte, produzione elettronica, teoria e solfeggio, armonia e arrangiamento, registrazione. Milano, Cantù e online.">
 <meta name="theme-color" content="#f5f0e6">
@@ -64,7 +64,8 @@ img,svg{display:block;max-width:100%}
 .section-head h2{font-family:'Archivo Black',sans-serif;font-size:clamp(40px,7vw,96px);line-height:.82;letter-spacing:-.055em}
 .section-note{font-size:13px;line-height:1.5;max-width:340px;color:var(--muted);text-transform:none;text-align:right}
 
-.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s var(--soft),transform .8s var(--soft)}
+.reveal{opacity:1;transform:none;transition:opacity .8s var(--soft),transform .8s var(--soft)}
+.reveal.is-pending{opacity:0;transform:translateY(26px)}
 .reveal.in{opacity:1;transform:none}
 
 .noise{
@@ -615,7 +616,7 @@ body.invert .info-list li{border-color:var(--hair)}
 }
 @supports not (background:color-mix(in srgb,#000 7%,#fff)){.project:hover{background:#e5e3dc}body.invert .project:hover{background:#151515}}
 </style>
-<link rel="stylesheet" href="assets/responsive.css">
+<link rel="stylesheet" href="assets/responsive.css?v=ee335bf1327e">
 </head>
 <body>
 <script>
@@ -1244,9 +1245,11 @@ body.invert .info-list li{border-color:var(--hair)}
   burger.addEventListener('click', () => toggleMenu());
   $$('#mobileMenu a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
   const desktopMenu = window.matchMedia('(min-width: 821px)');
-  desktopMenu.addEventListener('change', e => {
+  const syncDesktopMenu = e => {
     if (e.matches && menu.classList.contains('open')) toggleMenu(false);
-  });
+  };
+  if (typeof desktopMenu.addEventListener === 'function') desktopMenu.addEventListener('change', syncDesktopMenu);
+  else if (typeof desktopMenu.addListener === 'function') desktopMenu.addListener(syncDesktopMenu);
 
   /* THEME */
   const themeBtn = $('#themeBtn');
@@ -1290,7 +1293,7 @@ body.invert .info-list li{border-color:var(--hair)}
         if (en.isIntersecting) { setTimeout(() => en.target.classList.add('in'), i * 70); io.unobserve(en.target); }
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-    revealEls.forEach(el => io.observe(el));
+    revealEls.forEach(el => { el.classList.add('is-pending'); io.observe(el); });
   } else { revealEls.forEach(el => el.classList.add('in')); }
 
   /* COUNTERS */
@@ -1602,8 +1605,8 @@ body.invert .info-list li{border-color:var(--hair)}
 
 })();
 </script>
-<script src="assets/logo-data.js" defer></script>
-<script src="assets/logo.js" defer></script>
-<script src="assets/contact.js" defer></script>
+<script src="assets/logo-data.js?v=dd10d8be9c50" defer></script>
+<script src="assets/logo.js?v=8c0375187d65" defer></script>
+<script src="assets/contact.js?v=bc0bb9db50f9" defer></script>
 </body>
 </html>

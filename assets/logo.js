@@ -55,7 +55,8 @@
       toggle.setAttribute('aria-pressed', String(paused));
       schedule();
     });
-    reduce.addEventListener('change', schedule);
+    if (typeof reduce.addEventListener === 'function') reduce.addEventListener('change', schedule);
+    else if (typeof reduce.addListener === 'function') reduce.addListener(schedule);
     document.addEventListener('visibilitychange', schedule);
     window.addEventListener('pagehide', stop);
     window.addEventListener('pageshow', schedule);
